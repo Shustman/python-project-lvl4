@@ -1,0 +1,28 @@
+
+{% load bootstrap4 %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS and JavaScript -->
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
+    <link href="{% static 'cover.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <title>{% block title %}{% endblock %}</title>
+
+  </head>
+
+
+  <body>
+    <div class="cover-container text-center d-flex w-100 p-3 mx-auto flex-column">
+      {% include 'components/header.html' %}
+      {% block content %} {% endblock %}
+      {% include 'components/footer.html' %}
+    </div>
+  </body>
+</html>

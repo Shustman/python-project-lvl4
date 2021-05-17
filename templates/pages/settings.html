@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+
+    <!-- Showing list of statuses -->
+    {% if statuses %}
+        {% for status in statuses %}
+        <div class="row justify-content-center my-2">
+            <div class="col-1 text-center  mr-2 p-0">{{ status.name }}</div>
+
+            <form  action="{% url 'mainpage:edit_status' status.id %}" class="col-1 p-0" method="get" >{% csrf_token %}
+                <button  type="submit" class="btn btn-sm btn-outline-primary mr-2">Edit</button>
+            </form>
+            <form action="{% url 'mainpage:delete_status' status.id %}" class="col-1 p-0" method="post" >{% csrf_token %}
+                <button  type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Create new status -->
+    <form action="{% url 'mainpage:create_status' %}" class="form-inline justify-content-center mt-4" method="post" >{% csrf_token %}
+        <div class="form-group row">
+            <label for="newstatus" class="col-2 text-nowrap">Add new:</label>
+            {% bootstrap_field form.name layout="horizontal" size="small" horizontal_field_class='col-md-8 mx-3' show_label=False %}
+            <button type="submit" class="btn btn-success">Create</button>
+            <a href="{% url 'mainpage:home' %}" class="btn btn-secondary mx-2" role="button">Back</a>
+        </div>
+    </form>
+
+    <!-- Logout -->
+    <div class="row justify-content-center mt-3 p-1">
+        <p class="text-muted mt-5">If you are not {{ request.user }}, you can <u><a class="text-muted" href="{% url 'logout' %}">logout</a></u></p>
+        
+    </div>
+
+{% endblock %}

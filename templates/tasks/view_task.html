@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ task.name }}{% endblock %}
+
+{% block content %}
+  <h1>View task</h1>
+  <form method="post" class="text-left" novalidate>{% csrf_token %}
+    <fieldset disabled>
+      <div class="form-group">
+          <label for="name">Task name</label>
+          <input type="text" class="form-control" id="name" name="name" value="{{ task.name }}">
+      </div>
+      <div class="form-row mt-2">
+          <div class="col-10">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" rows="12" name="description">{{ task.description }}</textarea>
+          </div>
+          <div class="col-2">
+              <label for="tags">Tags</label>
+              <select multiple class="form-control text-left" size="15" name="tags" >
+                  {% for tag in task.tags.all %}
+                  <option>{{ tag }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+      </div>
+      <div class="form-row mt-2">
+          <div class="col">
+              <label for="status">Status</label>
+              <input type="text" class="form-control" value="{{ task.status }}">
+              </div>
+        <div class="col">
+                <label for="creator">Creator</label>
+                <input type="text" class="form-control" value="{{ task.creator }}">
+        </div>
+        <div class="col">
+                <label for="assigned_to">Assigned to</label>
+                <input type="text" class="form-control" value="{{ task.assigned_to }}">
+
+        </div>
+      </div></fieldset></form>
+      <div class="row justify-content-center my-3">
+            
+            <form method="GET" action="{% url 'mainpage:edit_task' task.id %}">{% csrf_token %}
+                <button action="{% url 'mainpage:edit_task' task.pk %}" class="btn btn-success mr-2" type='submit'>Edit task</button>
+            </form>
+            <form method="GET" action="{% url 'mainpage:delete_task' task.pk%}">{% csrf_token %}
+                <button class="btn btn-danger mr-1" type='submit'>Delete</button>
+            <a href="{% url 'mainpage:home'%}" class="btn btn btn-secondary" role="button">Back</a>
+    </div>
+  
+{% endblock %}

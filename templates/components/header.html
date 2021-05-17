@@ -1,0 +1,25 @@
+{% load static %}
+<header class="masthead mb-auto">
+  <div class="inner">
+    <h3 class="masthead-brand"><a href="{% url 'mainpage:home' %}">Task manager</a></h3>
+    <nav class="nav nav-masthead justify-content-center">
+        <a
+          {% if '/' == request.path or '/tasks/' == request.path %}
+            class="nav-link active"
+          {% else %}
+            class="nav-link"
+          {% endif %}
+          href="{% url 'mainpage:home' %}">Home</a>
+
+        <a
+          {% if 'settings' in request.path %}
+            class="nav-link active"
+          {% else %}
+            class="nav-link"
+          {% endif %}
+          href="{% url 'mainpage:settings' %}">Settings</a>
+
+
+    </nav>
+  </div>
+</header>
